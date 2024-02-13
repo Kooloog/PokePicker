@@ -506,7 +506,10 @@ span {
 
     .main > footer > h1 { font-size: 18px; }
 
-    .duel-grid > aside { bottom: 70%; }
+    .duel-grid > aside { 
+        bottom: 0px; 
+        top: 27%; 
+    }
 
     .duel-grid > aside > button { height: 30px; }
 
@@ -566,6 +569,15 @@ span {
     .ranking-pkmn { font-size: 16px; }
 
     .ranking-popup > span { font-size: 20px; }
+}
+
+@media only screen and (max-height: 800px) {
+    .duel-grid > aside { 
+        bottom: 0px; 
+        top: 200px; 
+    }
+
+    .pkmnPokedex { margin-top: -100px; }
 }
 
 @media only screen and (max-width: 550px) {
