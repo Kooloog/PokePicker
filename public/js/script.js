@@ -58,7 +58,7 @@ function skipDuel() {
         changeRightCell();
 
         setTimeout(() => {
-            document.getElementsByTagName("span")[0].innerHTML = --duelAmount;
+            document.getElementById("duelNum").innerHTML = --duelAmount;
             loadNewPokemon();
         }, 250)
         setTimeout(() => {
