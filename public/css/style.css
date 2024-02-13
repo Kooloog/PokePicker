@@ -577,7 +577,10 @@ span {
         top: 200px; 
     }
 
-    .pkmnPokedex { margin-top: -100px; }
+    .pkmnPokedex { 
+        margin-top: -100px; 
+        scale: 0.9;
+    }
 }
 
 @media only screen and (max-width: 550px) {
