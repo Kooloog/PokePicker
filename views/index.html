@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <meta name="author" content="Roberto Moreno, @KologDev">
+        <meta name="designer" content="Roberto Moreno, @KologDev">
+        <link rel="stylesheet" href="/css/style.css">
+        <title>PokePicker</title>
+    </head>
+    <body onclick="closeRankingPopup();">
+        <div id="main" class="main">
+            <header>
+                <img src="resources/logo.png">
+                <div class="options">
+                    <img src="resources/icons/language.png" onclick="showPopup('langPopup');">
+                    <img src="resources/icons/help.png" onclick="showPopup('helpPopup');">
+                </div>
+            </header>
+
+            <div id="langPopup" class="popup">
+                <div class="popup-contents">
+                    <h2>LANGUAGE</h2>
+                    <p style="font-size: 14px;">Effects will take place in the next duel.</p>
+                    <p style="font-size: 14px;">Los cambios se aplicarán al próximo duelo.</p>
+                    <div>
+                        <button onclick="changeLang('EN');">ENGLISH</button>
+                        <button onclick="changeLang('ES');">SPANISH</button>
+                    </div>
+                </div>
+                <p onclick='hidePopup("langPopup")'>X</p>
+            </div>
+
+            <div id="helpPopup" class="popup">
+                <div class="popup-contents">
+                    <h2>HOW TO PLAY</h2>
+                    <p>You will be presented with a choice between <span>two random Pokémon</span> of any generation.
+                       Simply pick the one you like better. You choose your criteria!</p>
+                    <p>Below the duel area you can find weekly and global <span>rankings.</span> 
+                       The weekly ranking resets every Monday at 6am CET. The global ranking never resets.</p>
+                    <p>Pokémon are ranked based of the percentage of <span>duels they've won.</span> If a Pokémon has won 10
+                       duels and has appeared in 20 duels, its percentage is 50%. </p>
+                    <p>There is also a chance you may encounter a <span>shiny Pokémon</span> while doing duels...
+                       The more you play in a single session, the higher the chances of finding a shiny!</p>
+                    <p>That said, <span>have fun!</span> </p>
+                    <p>-------------------</p>
+                    <p>Developed by <a href="https://twitter.com/KologDev">@KologDev</a></p>
+                    <p>Pokedex Font: <a href="https://www.dafont.com/es/pixel-coleco.font">Pixel Coleco</a>
+                       by <a href="https://www.pixelsagas.com">PixelSagas</a></p>
+                    <p>Shiny Pokémon BG from <a href="https://www.freepik.com/free-photos-vectors/yellow-starburst-background">Freepik</a></p>
+                </div>
+                <p onclick='hidePopup("helpPopup")'>X</p>
+            </div>
+
+            <div id="loading" class="loading-screen">LOADING...</div>
+
+            <div class="duel-grid">
+                <div class="duel-cell" onclick="updateScore(0);">
+                    <div>
+                        <img src="resources/pattern.png">
+                    </div>
+                    <div class="pkmnNumber">#0000</div>
+                    <div class="cell-contents">
+                        <p class="pkmnName"></p>
+                        <div class="pkmnTypes">
+                            <img src="resources/types/normal.png">
+                        </div>
+                        <div>
+                            <img class="pkmnImage">
+                            <div>
+                                <h3 class="pkmnPokedex"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="duel-separator"></div>
+
+                <div class="duel-cell" onclick="updateScore(1);">
+                    <div>
+                        <img src="resources/pattern.png">
+                    </div>
+                    <div class="pkmnNumber">#0000</div>
+                    <div class="cell-contents">
+                        <p class="pkmnName"></p>
+                        <div class="pkmnTypes">
+                            <img src="resources/types/normal.png">
+                        </div>
+                        <div>
+                            <img class="pkmnImage">
+                            <div>
+                                <h3 class="pkmnPokedex"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <aside>
+                    <button id="skip-duel" onclick="skipDuel();">
+                        <p id="skip">SKIP DUEL</p>
+                    </button>
+                </aside>
+            </div>
+
+            <footer>
+                <h1 id="duelCount">You've played <span id="duelNum">0</span> duels in this session</h1>
+            </footer>
+        </div>
+
+        <hr>
+        
+        <div class="rankings">
+            <div id="weekly-ranking">
+                <p class="ranking-title">WEEKLY RANKING</p>
+                <div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">1</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">2</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">3</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">4</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">5</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">6</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">7</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">8</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">9</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">10</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                </div>
+                <span class="full-ranking" onclick="openRankingPopup('weekly')">Full Weekly Ranking</span>
+            </div>
+            <div id="global-ranking">
+                <p class="ranking-title">GLOBAL RANKING</p>
+                <div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">1</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">2</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">3</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">4</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">5</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">6</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">7</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">8</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">9</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                    <div class="ranking-row">
+                        <div class="ranking-number">10</div>
+                        <div class="ranking-pkmn">Updating...</div>
+                    </div>
+                </div>
+                <span class="full-ranking" onclick="openRankingPopup('global')">Full Global Ranking</span>
+            </div>
+        </div>
+
+        <div class="ranking-popup">
+            <div class="ranking-popup-contents">
+                Loading...
+            </div>
+        </div>
+
+        <button class="button-rankings" onclick="updateRankings();">UPDATE RANKINGS</button>
+
+        <script type="text/javascript" src="js/settings.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
+        <script type="text/javascript" src="js/ranking.js"></script>
+    </body>
+</html>
