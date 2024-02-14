@@ -19,34 +19,39 @@ router.post("/update", jsonParser, function(req, res) {
 
     files.forEach(scoreFile => {
         fs.readFile(scoreFile, 'utf8', function(err, data) {
-            var lines = data.split('\n');
-            if(typeof lines !== 'undefined') {
-                var winnerData = lines[winner - 1].split('|');
-                var winnerReplace = winnerData[0] + '|' 
-                                    + winnerData[1] + '|'
-                                    + (parseInt(winnerData[2]) + 1) + '|'
-                                    + (parseInt(winnerData[3]) + 1) + '|';
+                var lines = data.split('\n');
+                if(typeof lines !== 'undefined' && typeof winner !== 'undefined') {
+                    try {
+                    var winnerData = lines[winner - 1].split('|');
+                    var winnerReplace = winnerData[0] + '|' 
+                                        + winnerData[1] + '|'
+                                        + (parseInt(winnerData[2]) + 1) + '|'
+                                        + (parseInt(winnerData[3]) + 1) + '|';
 
-                var replace = (winnerData[0] + '|' + winnerData[1] + '|' + winnerData[2] + '|' + winnerData[3] + '|');
-                var newWinnerLine = data.replace(replace, winnerReplace);
-                
-                fs.writeFile(scoreFile, newWinnerLine, 'utf8', function(err) {
-                    if (err) return console.log(err);
-                });
+                    var replace = (winnerData[0] + '|' + winnerData[1] + '|' + winnerData[2] + '|' + winnerData[3] + '|');
+                    var newWinnerLine = data.replace(replace, winnerReplace);
+                    
+                    fs.writeFile(scoreFile, newWinnerLine, 'utf8', function(err) {
+                        if (err) return console.log(err);
+                    });
 
-                data = newWinnerLine;
-                var loserData = lines[loser - 1].split('|');
-                var loserReplace = loserData[0] + '|' 
-                                    + loserData[1] + '|'
-                                    + loserData[2] + '|'
-                                    + (parseInt(loserData[3]) + 1) + '|';
+                    data = newWinnerLine;
+                    var loserData = lines[loser - 1].split('|');
+                    var loserReplace = loserData[0] + '|' 
+                                        + loserData[1] + '|'
+                                        + loserData[2] + '|'
+                                        + (parseInt(loserData[3]) + 1) + '|';
 
-                var replace = (loserData[0] + '|' + loserData[1] + '|' + loserData[2] + '|' + loserData[3] + '|');
-                var newLoserLine = data.replace(replace, loserReplace);
-                
-                fs.writeFile(scoreFile, newLoserLine, 'utf8', function(err) {
-                    if (err) return console.log(err);
-                });
+                    var replace = (loserData[0] + '|' + loserData[1] + '|' + loserData[2] + '|' + loserData[3] + '|');
+                    var newLoserLine = data.replace(replace, loserReplace);
+                    
+                    fs.writeFile(scoreFile, newLoserLine, 'utf8', function(err) {
+                        if (err) return console.log(err);
+                    });
+                }
+                catch(error) {
+                    console.error(error);
+                }
             }
         });
     });
