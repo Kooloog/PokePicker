@@ -581,6 +581,8 @@ span {
         margin-top: -100px; 
         scale: 0.9;
     }
+
+    .langPopUp { scale: 0.75; }
 }
 
 @media only screen and (max-width: 550px) {

@@ -19,7 +19,7 @@ function getCookie(name) {
 function setTexts(lang) {
     if (lang == 'EN') {
         document.getElementById("duelCount").innerHTML =
-            "You've played <span id='duelNum'>0</span> duels in this session";
+            "You've played <span id='duelNum'>" + duelAmount + "</span> duels in this session";
         document.getElementById("skip").innerHTML = "SKIP DUEL";
         document.getElementsByClassName("ranking-title")[0].innerHTML = "WEEKLY RANKING";
         document.getElementsByClassName("ranking-title")[1].innerHTML = "GLOBAL RANKING";
@@ -29,7 +29,7 @@ function setTexts(lang) {
     }
     else if(lang == 'ES') {
         document.getElementById("duelCount").innerHTML =
-            "Has jugado <span id='duelNum'>0</span> duelos en esta sesión";
+            "Has jugado <span id='duelNum'>" + duelAmount + "</span> duelos en esta sesión";
         document.getElementById("skip").innerHTML = "SALTAR";
         document.getElementsByClassName("ranking-title")[0].innerHTML = "RANKING SEMANAL";
         document.getElementsByClassName("ranking-title")[1].innerHTML = "RANKING GLOBAL";
