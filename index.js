@@ -10,6 +10,9 @@ var fs = require('fs');
 var globalFile = "public/files/score.txt";
 var weeklyFile = "public/files/weekly.txt";
 
+//Need to implement clustering this is just me being a bad coder
+var tempFix = false;
+
 router.post("/update", jsonParser, function(req, res) {
     var regex = new RegExp('\#0*');
     var winner = (req.body.winner).replace(regex, "");
@@ -18,9 +21,10 @@ router.post("/update", jsonParser, function(req, res) {
     var files = [globalFile, weeklyFile];
 
     files.forEach(scoreFile => {
-        fs.readFile(scoreFile, 'utf8', function(err, data) {
+        if(!tempFix) {
+            tempFix = true;
+            fs.readFile(scoreFile, 'utf8', function(err, data) {
                 var lines = data.split('\n');
-                if(typeof lines !== 'undefined' && typeof winner !== 'undefined') {
                     try {
                     var winnerData = lines[winner - 1].split('|');
                     var winnerReplace = winnerData[0] + '|' 
@@ -28,9 +32,10 @@ router.post("/update", jsonParser, function(req, res) {
                                         + (parseInt(winnerData[2]) + 1) + '|'
                                         + (parseInt(winnerData[3]) + 1) + '|';
 
-                    var replace = (winnerData[0] + '|' + winnerData[1] + '|' + winnerData[2] + '|' + winnerData[3] + '|');
+                    var replace = (winnerData[0] + '|' + winnerData[1] + '|' + winnerData[2] 
+                                  + '|' + winnerData[3] + '|');
                     var newWinnerLine = data.replace(replace, winnerReplace);
-                    
+                        
                     fs.writeFile(scoreFile, newWinnerLine, 'utf8', function(err) {
                         if (err) return console.log(err);
                     });
@@ -44,16 +49,18 @@ router.post("/update", jsonParser, function(req, res) {
 
                     var replace = (loserData[0] + '|' + loserData[1] + '|' + loserData[2] + '|' + loserData[3] + '|');
                     var newLoserLine = data.replace(replace, loserReplace);
-                    
+                        
                     fs.writeFile(scoreFile, newLoserLine, 'utf8', function(err) {
                         if (err) return console.log(err);
                     });
                 }
                 catch(error) {
                     console.error(error);
+                    tempFix = false;  
                 }
-            }
-        });
+            });
+            tempFix = false;  
+        }
     });
 
     res.status(200).send("OK");
