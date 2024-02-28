@@ -66,7 +66,7 @@ router.post("/update", jsonParser, function(req, res) {
     res.status(200).send("OK");
 })
 
-schedule.scheduleJob('1 6 * * 0', () => { 
+schedule.scheduleJob('0 6 * * 1', () => { 
     console.log("running task");
     fs.unlinkSync('public/files/weekly.txt');
     fs.copyFileSync('public/files/template.txt', 'public/files/weekly.txt');

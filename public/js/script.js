@@ -78,7 +78,9 @@ function loadNewPokemon() {
 
     for(var i=0; i<=1; i++) {
         if(pkmnTypes[i].children.length == 2) pkmnTypes[i].removeChild(pkmnTypes[i].lastChild);
-        
+        pkmnNames[i].style.filter = "none";
+        duelCells[i].style.backgroundImage = "";
+
         do {
             var pkmnNumber = Math.floor(Math.random() * 1025) + 1;
         } while(pkmnNumber == lastPokemon)
@@ -118,6 +120,8 @@ function loadNewPokemon() {
             pkmnCells[i].style.backgroundImage = "none";
             pkmnNames[i].style.filter = "none";
         }
+
+        currentEvent(pkmnData[1], i);
     }
 
     setPokedexTextSize(pkmnPokedex);
