@@ -1,6 +1,5 @@
 function currentEvent(name, cell) {
-    if(getCookie("lang") == "ES")
-        eventAndalucia(name, cell);
+    //nothing
 }
 
 function eventAndalucia(name, cell) {
